@@ -1,0 +1,20 @@
+{
+  "name": "praca-inzynierska",
+  "version": "1.0.0",
+  "source": "src/index.html",
+  "browserslist": "defaults",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "flow-bin": "^0.163.0",
+    "parcel": "latest",
+    "prettier": "2.4.1"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}
