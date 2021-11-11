@@ -1,0 +1,62 @@
+@use "vars.scss";
+
+.main {
+  background-color: vars.$light;
+  flex-grow: 1;
+}
+
+.signin {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.top {
+  margin: 20px auto;
+}
+
+.header {
+  color: vars.$dark;
+  font-family: vars.$prim-font;
+  margin-bottom: 20px;
+}
+
+.input {
+  width: 80%;
+  border-radius: 5px;
+  border: 0;
+  margin: 5px auto;
+  font-family: vars.$sec-font;
+  color: vars.$dark;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.input::placeholder {
+  color: vars.$dark;
+}
+
+.button {
+  width: 80%;
+  font-family: vars.$sec-font;
+  color: vars.$white;
+  margin: 5px auto;
+  padding: 10px 0;
+  border-radius: 5px;
+  border: 0;
+  background-color: vars.$medium;
+}
+
+@media (min-width: 769px) {
+  .main {
+    margin: 0 15%;
+  }
+
+  .signin {
+    width: 50%;
+    margin: 50px auto;
+  }
+}
