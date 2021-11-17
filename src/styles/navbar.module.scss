@@ -24,7 +24,7 @@
   align-items: center;
 }
 
-.icons {
+.icon {
   display: flex;
   align-items: center;
 }
@@ -33,7 +33,7 @@
   display: none;
 }
 
-.links[data-iscollapsed="false"] {
+.linksVisible {
   position: absolute;
   right: 0;
   top: 40px;
@@ -57,7 +57,7 @@
 }
 
 @media screen and (min-width: 769px) {
-  .links[data-iscollapsed="false"] {
+  .linksVisible {
     position: static;
     background-color: transparent;
     padding: 0 0;

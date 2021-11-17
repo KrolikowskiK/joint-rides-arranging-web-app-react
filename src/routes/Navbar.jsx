@@ -6,30 +6,28 @@ import * as css from "../styles/navbar.module.scss";
 export default class Navbar extends React.Component {
   constructor(props) {
     super(props);
+
+    this.toggleMenu = () => {
+      this.setState({
+        isCollapsed: !this.state.isCollapsed,
+      });
+    };
+
     this.state = {
       isCollapsed: true,
     };
   }
 
-  toggleMenu() {
-    this.setState({
-      isCollapsed: !this.state.isCollapsed,
-    });
-  }
-
-  closeMenu() {
-    this.setState({
-      isCollapsed: true,
-    });
-  }
-
   render() {
+    const linksClasses = this.state.isCollapsed
+      ? css.links
+      : css.links + " " + css.linksVisible;
+
     return (
       <nav className={css.nav}>
         <div className={css.navLeft}>
-          <Link className={css.icons} to="/">
+          <Link className={css.icon} to="/">
             <svg
-              className={css.svg}
               width="40"
               height="40"
               viewBox="0 0 40 40"
@@ -44,18 +42,18 @@ export default class Navbar extends React.Component {
           </Link>
         </div>
         <div className={css.navRight}>
-          <div data-iscollapsed={this.state.isCollapsed} className={css.links}>
-            <Link to="/signin" className={css.link} onClick={() => closeMenu()}>
+          <div className={linksClasses}>
+            <Link to="signin" className={css.link} onClick={this.toggleMenu}>
               Zaloguj się
             </Link>
-            <Link to="/signup" className={css.link} onClick={() => closeMenu()}>
+            <Link to="signup" className={css.link} onClick={this.toggleMenu}>
               Zarejestruj się
             </Link>
           </div>
 
           <button
-            className={css.menuButton + " " + css.icons}
-            onClick={() => this.toggleMenu()}
+            className={css.menuButton + " " + css.icon}
+            onClick={this.toggleMenu}
           >
             <svg
               width="40"
