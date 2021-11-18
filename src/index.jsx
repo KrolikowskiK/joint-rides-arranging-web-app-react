@@ -1,10 +1,11 @@
 import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import App from "./App";
-import Browser from "./routes/Browser";
+import App from "./routes/App";
+import Home from "./routes/Home";
 import SignIn from "./routes/SignIn";
 import SignUp from "./routes/SignUp";
+import SignOut from "./routes/SignOut";
 
 import "./styles/index.scss";
 
@@ -13,9 +14,10 @@ ReactDOM.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />}>
-        <Route index element={<Browser />} />
+        <Route index element={<Home />} />
         <Route path="signin" element={<SignIn />} />
         <Route path="signup" element={<SignUp />} />
+        <Route path="signout" element={<SignOut />} />
       </Route>
     </Routes>
   </BrowserRouter>,

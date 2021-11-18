@@ -1,17 +1,38 @@
 import * as React from "react";
-import * as classes from "../styles/signIn.module.scss";
 
-export default function SignIn() {
-  return (
-    <main className={classes.main}>
-      <form className={classes.signin}>
-        <h1 className={classes.header}>Logowanie</h1>
-        <input className={classes.input} type="text" placeholder="E-mail" />
-        <input className={classes.input} type="text" placeholder="Hasło" />
-        <button type="submit" className={classes.button}>
+import { Context } from "../Context";
+
+import * as css from "../styles/signIn.module.scss";
+
+class SignIn extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleSubmit = (event) => {
+      alert("Form submitted");
+      this.context.authenticate();
+      event.preventDefault();
+    };
+  }
+
+  render() {
+    return (
+      <form className={css.signin}>
+        <h1 className={css.header}>Logowanie</h1>
+        <input className={css.input} type="text" placeholder="E-mail" />
+        <input className={css.input} type="text" placeholder="Hasło" />
+        <button
+          type="submit"
+          className={css.button}
+          onClick={this.handleSubmit}
+        >
           Zaloguj się
         </button>
       </form>
-    </main>
-  );
+    );
+  }
 }
+
+SignIn.contextType = Context;
+
+export default SignIn;

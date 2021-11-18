@@ -1,10 +1,5 @@
 @use "vars.scss";
 
-.main {
-  background-color: vars.$light;
-  flex-grow: 1;
-}
-
 .browser {
   display: flex;
   flex-direction: column;
@@ -51,9 +46,6 @@
 }
 
 @media screen and (min-width: 769px) {
-  .main {
-    margin: 0 15%;
-  }
   .browser {
     width: 50%;
     margin: 50px auto;
