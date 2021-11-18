@@ -1,11 +1,14 @@
-import * as React from "react";
-
-import { Context } from "../Context";
-
+import React from "react";
+import { UserContext } from "./App";
 import Browser from "../components/Browser";
 
-import * as css from "../styles/home.module.scss";
-
 export default function Home() {
-  return <Context.Consumer>{(value) => <Browser />}</Context.Consumer>;
+  const context = React.useContext(UserContext);
+
+  const content = context.state.isAuthenticated ? (
+    <h1>Jesteś zalogowany</h1>
+  ) : (
+    <Browser />
+  );
+  return <>{content}</>;
 }

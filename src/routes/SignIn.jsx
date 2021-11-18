@@ -1,38 +1,26 @@
-import * as React from "react";
-
-import { Context } from "../Context";
-
+import React from "react";
+import { UserContext } from "./App";
 import * as css from "../styles/signIn.module.scss";
+import { useNavigate } from "react-router";
 
-class SignIn extends React.Component {
-  constructor(props) {
-    super(props);
+export default function SignIn() {
+  const context = React.useContext(UserContext);
+  const navigate = useNavigate();
 
-    this.handleSubmit = (event) => {
-      alert("Form submitted");
-      this.context.authenticate();
-      event.preventDefault();
-    };
+  function handleSubmit(event) {
+    event.preventDefault();
+    context.dispatch({ type: "LOGIN" });
+    navigate("/");
   }
 
-  render() {
-    return (
-      <form className={css.signin}>
-        <h1 className={css.header}>Logowanie</h1>
-        <input className={css.input} type="text" placeholder="E-mail" />
-        <input className={css.input} type="text" placeholder="Hasło" />
-        <button
-          type="submit"
-          className={css.button}
-          onClick={this.handleSubmit}
-        >
-          Zaloguj się
-        </button>
-      </form>
-    );
-  }
+  return (
+    <form className={css.signin}>
+      <h1 className={css.header}>Logowanie</h1>
+      <input className={css.input} type="text" placeholder="E-mail" />
+      <input className={css.input} type="text" placeholder="Hasło" />
+      <button type="submit" className={css.button} onClick={handleSubmit}>
+        Zaloguj się
+      </button>
+    </form>
+  );
 }
-
-SignIn.contextType = Context;
-
-export default SignIn;

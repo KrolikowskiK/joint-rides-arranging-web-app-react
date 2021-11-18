@@ -1,44 +1,41 @@
-import * as React from "react";
+import React from "react";
 import { Outlet } from "react-router-dom";
-
-import { Context } from "../Context";
-
 import Navbar from "../components/Navbar";
 import AuthNavbar from "../components/AuthNavbar";
-
 import * as css from "../styles/app.module.scss";
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
+export const UserContext = React.createContext();
 
-    this.authenticate = () => {
-      this.setState({
+const initialState = {
+  isAuthenticated: false,
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "LOGIN":
+      return {
+        ...state,
         isAuthenticated: true,
-      });
-    };
-
-    this.signout = () => {
-      this.setState({
+      };
+    case "LOGOUT":
+      return {
+        ...state,
         isAuthenticated: false,
-      });
-    };
-
-    this.state = {
-      isAuthenticated: false,
-      authenticate: this.authenticate,
-      signout: this.signout,
-    };
+      };
+    default:
+      return state;
   }
+};
 
-  render() {
-    return (
-      <Context.Provider value={this.state}>
-        {this.state.isAuthenticated ? <AuthNavbar /> : <Navbar />}
-        <main className={css.main}>
-          <Outlet />
-        </main>
-      </Context.Provider>
-    );
-  }
+export default function App() {
+  const [state, dispatch] = React.useReducer(reducer, initialState);
+
+  return (
+    <UserContext.Provider value={{ state, dispatch }}>
+      {state.isAuthenticated ? <AuthNavbar /> : <Navbar />}
+      <main className={css.main}>
+        <Outlet />
+      </main>
+    </UserContext.Provider>
+  );
 }
