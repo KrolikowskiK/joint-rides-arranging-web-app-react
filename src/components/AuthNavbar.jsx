@@ -27,7 +27,7 @@ export default function AuthNavbar() {
   const navMid =
     width >= 769 ? (
       <div className={css.navMid}>
-        <Link to="search" className={css.link} onClick={closeMenu}>
+        <Link to="/" className={css.link} onClick={closeMenu}>
           Szukaj przejazdu
         </Link>
         <Link to="rides" className={css.link} onClick={closeMenu}>
