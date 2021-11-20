@@ -1,9 +1,9 @@
 import React from "react";
-import * as css from "../styles/browser.module.scss";
+import * as css from "../styles/ridesSearchForm.module.scss";
 
-export default function Browser() {
+export default function RidesSearchForm() {
   return (
-    <form className={css.browser}>
+    <form className={css.form}>
       <h1 className={css.header}>Wyszukaj przejazd już teraz!</h1>
       <input className={css.input} type="text" placeholder="Skąd" />
       <input className={css.input} type="text" placeholder="Dokąd" />

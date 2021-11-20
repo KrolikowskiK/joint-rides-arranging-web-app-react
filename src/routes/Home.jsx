@@ -1,6 +1,6 @@
 import React from "react";
 import { UserContext } from "./App";
-import Browser from "../components/Browser";
+import RidesSearchForm from "../components/RidesSearchForm";
 import RidesListHeader from "../components/RidesListHeader";
 import RidesList from "../components/RidesList";
 
@@ -9,7 +9,7 @@ export default function Home() {
   const headerType = context.state.isAuthenticated ? "recommended" : "last";
   return (
     <>
-      <Browser />
+      <RidesSearchForm />
       <RidesListHeader type={headerType} />
       <RidesList />
     </>
