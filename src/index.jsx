@@ -5,6 +5,7 @@ import App from "./routes/App";
 import Home from "./routes/Home";
 import Rides from "./routes/Rides";
 import Friends from "./routes/Friends";
+import Profile from "./routes/Profile";
 import SignIn from "./routes/SignIn";
 import SignUp from "./routes/SignUp";
 import SignOut from "./routes/SignOut";
@@ -20,6 +21,7 @@ ReactDOM.render(
         <Route index element={<Home />} />
         <Route path="rides" element={<Rides />} />
         <Route path="friends" element={<Friends />} />
+        <Route path="profile" element={<Profile />} />
         <Route path="signin" element={<SignIn />} />
         <Route path="signup" element={<SignUp />} />
         <Route path="signout" element={<SignOut />} />

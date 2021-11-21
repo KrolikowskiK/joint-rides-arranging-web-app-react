@@ -44,7 +44,7 @@ export default function AuthNavbar() {
   const menu =
     width < 769 ? (
       <div className={menuClasses}>
-        <Link to="search" className={css.link} onClick={closeMenu}>
+        <Link to="" className={css.link} onClick={closeMenu}>
           Szukaj przejazdu
         </Link>
         <Link to="rides" className={css.link} onClick={closeMenu}>
@@ -53,7 +53,7 @@ export default function AuthNavbar() {
         <Link to="friends" className={css.link} onClick={closeMenu}>
           Znajomi
         </Link>
-        <Link to="Me" className={css.link} onClick={closeMenu}>
+        <Link to="profile" className={css.link} onClick={closeMenu}>
           Mój profil
         </Link>
         <Link to="cars" className={css.link} onClick={closeMenu}>
@@ -65,7 +65,7 @@ export default function AuthNavbar() {
       </div>
     ) : (
       <div className={menuClasses}>
-        <Link to="Me" className={css.link} onClick={closeMenu}>
+        <Link to="profile" className={css.link} onClick={closeMenu}>
           Mój profil
         </Link>
         <Link to="cars" className={css.link} onClick={closeMenu}>

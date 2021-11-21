@@ -1,0 +1,53 @@
+@use "vars.scss" as vars;
+
+.mainHeader {
+  margin-top: 10px;
+  text-align: center;
+  color: vars.$dark;
+  font-family: vars.$prim-font;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  width: 300px;
+  margin: 0 auto;
+}
+
+.secondaryHeader {
+  color: vars.$dark;
+  font-family: vars.$prim-font;
+  margin-top: 15px;
+}
+
+.input {
+  font-family: vars.$sec-font;
+  color: vars.$dark;
+  text-align: center;
+  padding: 10px 0;
+  border-radius: 5px;
+  border: 0;
+  margin-top: 5px;
+}
+
+.input::placeholder {
+  color: vars.$dark;
+}
+
+.button {
+  font-family: vars.$sec-font;
+  color: vars.$white;
+  margin-top: 20px;
+  padding: 10px 0;
+  border-radius: 5px;
+  border: 0;
+  background-color: vars.$medium;
+}
+
+@media screen and (min-width: 769px) {
+  .mainHeader {
+    margin-top: 30px;
+  }
+}
