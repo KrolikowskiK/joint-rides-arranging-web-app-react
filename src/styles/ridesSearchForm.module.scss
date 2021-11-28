@@ -6,7 +6,6 @@
   width: 80%;
   margin: 0 auto;
   margin-top: 20px;
-  text-align: center;
 }
 
 .top {
@@ -16,30 +15,38 @@
 .header {
   color: vars.$dark;
   font-family: vars.$prim-font;
-  margin-bottom: 20px;
+}
+
+.label {
+  font-family: vars.$sec-font;
+  color: vars.$dark;
+  margin-top: 15px;
 }
 
 .input {
-  width: 80%;
+  //   width: 80%;
   border-radius: 5px;
   border: 0;
-  margin: 5px auto;
   font-family: vars.$sec-font;
   color: vars.$dark;
-  text-align: center;
-  padding: 10px 0;
+  padding: 10px 15px;
 }
 
 .input::placeholder {
+  font-family: vars.$sec-font;
+  color: vars.$dark;
+}
+
+.error {
+  font-family: vars.$sec-font;
   color: vars.$dark;
 }
 
 .button {
-  width: 80%;
   font-family: vars.$sec-font;
   color: vars.$white;
-  margin: 5px auto;
-  padding: 10px 0;
+  margin-top: 15px;
+  padding: 10px 15px;
   border-radius: 5px;
   border: 0;
   background-color: vars.$medium;
