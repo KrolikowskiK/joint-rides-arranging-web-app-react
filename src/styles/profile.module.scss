@@ -1,5 +1,12 @@
 @use "vars.scss" as vars;
 
+.profile {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  align-items: center;
+}
+
 .mainHeader {
   margin-top: 10px;
   text-align: center;
@@ -10,8 +17,22 @@
 .form {
   display: flex;
   flex-direction: column;
+  row-gap: 15px;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+}
+
+.left > object {
+  margin: 0 auto;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  text-align: center;
   width: 300px;
   margin: 0 auto;
 }
@@ -22,17 +43,49 @@
   margin-top: 15px;
 }
 
+.secondaryHeader:first-child {
+  color: vars.$dark;
+  font-family: vars.$prim-font;
+  margin-top: 0;
+}
+
+.label {
+  font-family: vars.$sec-font;
+  color: vars.$dark;
+  margin-top: 15px;
+}
+
 .input {
   font-family: vars.$sec-font;
   color: vars.$dark;
-  text-align: center;
-  padding: 10px 0;
+  padding: 10px 15px;
   border-radius: 5px;
   border: 0;
   margin-top: 5px;
 }
 
 .input::placeholder {
+  font-family: vars.$sec-font;
+  color: vars.$dark;
+}
+
+.error {
+  font-family: vars.$sec-font;
+  color: vars.$dark;
+}
+
+.textArea {
+  font-family: vars.$sec-font;
+  color: vars.$dark;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: 0;
+  resize: none;
+  height: 100px;
+}
+
+.textArea::placeholder {
+  font-family: vars.$sec-font;
   color: vars.$dark;
 }
 
@@ -49,5 +102,11 @@
 @media screen and (min-width: 769px) {
   .mainHeader {
     margin-top: 30px;
+  }
+  .form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 50px;
   }
 }
