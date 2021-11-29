@@ -1,8 +1,13 @@
 import React from "react";
+import useAuth from "../components/Auth";
 import * as css from "../styles/signUp.module.scss";
 
 export default function SignUp() {
-  return (
+  const { authed } = useAuth();
+
+  return authed ? (
+    <h2 className={css.h2}>Już jesteś zalogowany</h2>
+  ) : (
     <form className={css.signup}>
       <h1 className={css.header}>Rejestracja</h1>
       <input className={css.input} type="text" placeholder="Imię" />

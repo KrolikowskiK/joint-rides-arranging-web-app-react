@@ -1,19 +1,24 @@
 import React from "react";
-import { UserContext } from "./App";
+import useAuth from "../components/Auth";
+import { useLocation, useNavigate } from "react-router";
 import * as css from "../styles/signIn.module.scss";
-import { useNavigate } from "react-router";
 
 export default function SignIn() {
-  const context = React.useContext(UserContext);
   const navigate = useNavigate();
+  const { signin, authed } = useAuth();
+  const { state } = useLocation();
 
   function handleSubmit(event) {
     event.preventDefault();
-    context.dispatch({ type: "LOGIN" });
-    navigate("/");
+    signin().then(() => {
+      const path = state === null ? "/" : state.path;
+      navigate(path);
+    });
   }
 
-  return (
+  return authed ? (
+    <h2 className={css.h2}>Już jesteś zalogowany</h2>
+  ) : (
     <form className={css.signin}>
       <h1 className={css.header}>Logowanie</h1>
       <input className={css.input} type="text" placeholder="E-mail" />
