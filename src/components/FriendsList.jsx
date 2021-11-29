@@ -2,11 +2,22 @@ import React from "react";
 import FriendCard from "./FriendCard";
 import * as css from "../styles/friendsList.module.scss";
 
+const friendsParams = [
+  {
+    name: "Kacper",
+  },
+  {
+    name: "Sylwester",
+  },
+  {
+    name: "Piotr",
+  },
+];
+
 export default function FriendsList() {
   let cards = [];
-  for (let i = 0; i < 5; i++) {
-    // TODO change key to be unique
-    cards.push(<FriendCard key={i} />);
+  for (let i = 0; i < 3; i++) {
+    cards.push(<FriendCard key={i} params={friendsParams[i]} />);
   }
 
   return (

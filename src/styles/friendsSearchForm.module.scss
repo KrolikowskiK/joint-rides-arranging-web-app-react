@@ -30,12 +30,14 @@
   border: 0;
   font-family: vars.$sec-font;
   color: vars.$dark;
-  text-align: center;
   padding: 10px 0;
+  padding-left: 10px;
+  font-size: 1.1rem;
 }
 
 .input::placeholder {
   color: vars.$dark;
+  font-size: 1.1rem;
 }
 
 .button {
