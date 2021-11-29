@@ -1,47 +1,47 @@
 @use "vars.scss";
 
-.signup {
+.header {
+  margin-top: 10px;
+  text-align: center;
+  color: vars.$dark;
+  font-family: vars.$prim-font;
+}
+
+.form {
   display: flex;
   flex-direction: column;
   width: 80%;
   margin: 0 auto;
   margin-top: 20px;
-  text-align: center;
-}
 
-.top {
-  margin: 20px auto;
-}
-
-.header {
+  font-family: vars.$sec-font;
   color: vars.$dark;
-  font-family: vars.$prim-font;
-  margin-bottom: 20px;
+}
+
+.label {
+  margin-top: 10px;
 }
 
 .input {
-  width: 80%;
+  width: 100%;
   border-radius: 5px;
   border: 0;
   margin: 5px auto;
-  font-family: vars.$sec-font;
-  color: vars.$dark;
-  text-align: center;
-  padding: 10px 0;
+  padding: 10px 15px;
 }
 
 .input::placeholder {
+  font-family: vars.$sec-font;
   color: vars.$dark;
 }
 
 .button {
-  width: 80%;
-  font-family: vars.$sec-font;
-  color: vars.$white;
+  width: 100%;
   margin: 5px auto;
   padding: 10px 0;
   border-radius: 5px;
   border: 0;
+  color: vars.$white;
   background-color: vars.$medium;
 }
 
@@ -53,9 +53,13 @@
 }
 
 @media (min-width: 769px) {
-  .signup {
+  .header {
+    margin-top: 30px;
+  }
+
+  .form {
     width: 50%;
-    margin: 30px auto;
+    margin: 10px auto;
   }
 
   .h2 {
