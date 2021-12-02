@@ -1,0 +1,100 @@
+@use "vars.scss" as vars;
+
+.header {
+  margin-top: 10px;
+  text-align: center;
+  color: vars.$dark;
+  font-family: vars.$prim-font;
+}
+
+.form {
+  display: grid;
+  grid:
+    "mark"
+    "model"
+    "registrationNumber"
+    "numberOfSeats"
+    "color"
+    "button"
+    / 1fr;
+  gap: 15px 30px;
+
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 20px;
+
+  font-family: vars.$sec-font;
+  color: vars.$dark;
+}
+
+.label {
+  display: block;
+}
+
+.input {
+  display: block;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: 0;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 5px;
+}
+
+.input::placeholder {
+  font-family: vars.$sec-font;
+  color: vars.$dark;
+}
+
+.mark {
+  grid-area: mark;
+}
+
+.model {
+  grid-area: model;
+}
+
+.registrationNumber {
+  grid-area: registrationNumber;
+}
+
+.numberOfSeats {
+  grid-area: numberOfSeats;
+}
+
+.color {
+  grid-area: color;
+}
+
+.button {
+  grid-area: button;
+
+  color: vars.$white;
+  margin-top: 20px;
+  padding: 10px 0;
+  border-radius: 5px;
+  border: 0;
+  background-color: vars.$medium;
+}
+
+@media screen and (min-width: 481px) {
+  .form {
+    grid:
+      "mark model"
+      "registrationNumber numberOfSeats"
+      "color button"
+      / 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .header {
+    margin-top: 30px;
+  }
+}
+
+@media screen and (min-width: 1201px) {
+  .form {
+    width: 60%;
+  }
+}

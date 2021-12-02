@@ -10,6 +10,7 @@ import RideAdd from "./routes/RideAdd";
 import Friends from "./routes/Friends";
 import Profile from "./routes/Profile";
 import Cars from "./routes/Cars";
+import CarAdd from "./routes/CarAdd";
 import SignIn from "./routes/SignIn";
 import SignUp from "./routes/SignUp";
 import SignOut from "./routes/SignOut";
@@ -71,7 +72,14 @@ ReactDOM.render(
               </RequireAuth>
             }
           />
-          <Route path="cars/new" element={<></>} />
+          <Route
+            path="cars/new"
+            element={
+              <RequireAuth>
+                <CarAdd />
+              </RequireAuth>
+            }
+          />
           <Route path="cars/:id" element={<></>} />
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />

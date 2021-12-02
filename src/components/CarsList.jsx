@@ -1,4 +1,5 @@
 import React from "react";
+import CarsListHeader from "./CarsListHeader";
 import CarCard from "./CarCard";
 import * as css from "../styles/carsList.module.scss";
 
@@ -11,7 +12,7 @@ export default function CarsList() {
 
   return (
     <div className={css.carsList}>
-      <h1 className={css.header}>Twoje pojazdy</h1>
+      <CarsListHeader />
       <div className={css.cards}>{cards}</div>
     </div>
   );
