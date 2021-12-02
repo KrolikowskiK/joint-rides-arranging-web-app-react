@@ -1,0 +1,95 @@
+@use "vars.scss" as vars;
+
+.details {
+  display: grid;
+  grid:
+    "mark"
+    "model"
+    "registrationNumber"
+    "numberOfSeats"
+    "color"
+    "button"
+    / 1fr;
+  gap: 15px 30px;
+
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 20px;
+  font-family: vars.$sec-font;
+  color: vars.$dark;
+}
+
+.details > div {
+  background-color: vars.$white;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.header {
+  text-align: center;
+  margin-top: 10px;
+  font-family: vars.$prim-font;
+  color: vars.$dark;
+}
+
+.value {
+  font-size: 1.1rem;
+}
+
+.mark {
+  grid-area: mark;
+}
+
+.model {
+  grid-area: model;
+}
+
+.registrationNumber {
+  grid-area: registrationNumber;
+}
+
+.numberOfSeats {
+  grid-area: numberOfSeats;
+}
+
+.color {
+  grid-area: color;
+}
+
+.button {
+  grid-area: button;
+  background-color: vars.$medium;
+  border: none;
+  color: vars.$white;
+  font-family: vars.$sec-font;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 1.1rem;
+}
+
+@media screen and (min-width: 481px) {
+  .details {
+    grid:
+      "mark model"
+      "registrationNumber numberOfSeats"
+      "color ."
+      "button button"
+      / 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .details > div {
+    padding: 10px 20px;
+  }
+
+  .header {
+    margin-top: 30px;
+  }
+}
+
+@media screen and (min-width: 1201px) {
+  .details {
+    width: 50%;
+  }
+}

@@ -11,6 +11,7 @@ import Friends from "./routes/Friends";
 import Profile from "./routes/Profile";
 import Cars from "./routes/Cars";
 import CarAdd from "./routes/CarAdd";
+import CarDetails from "./routes/CarDetails";
 import SignIn from "./routes/SignIn";
 import SignUp from "./routes/SignUp";
 import SignOut from "./routes/SignOut";
@@ -55,7 +56,7 @@ ReactDOM.render(
               </RequireAuth>
             }
           />
-          <Route path="friends/:id" element={<></>} />
+          <Route path="friends/:friendId" element={<></>} />
           <Route
             path="profile"
             element={
@@ -80,7 +81,14 @@ ReactDOM.render(
               </RequireAuth>
             }
           />
-          <Route path="cars/:id" element={<></>} />
+          <Route
+            path="cars/:carId"
+            element={
+              <RequireAuth>
+                <CarDetails />{" "}
+              </RequireAuth>
+            }
+          />
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="signout" element={<SignOut />} />

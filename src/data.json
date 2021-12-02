@@ -21,7 +21,7 @@
   ],
   "rides": [
     {
-      "id": 1,
+      "id": 0,
       "startDest": "Lublin",
       "endDest": "Radom",
       "startDate": "05/10/2021",
@@ -31,7 +31,7 @@
       "price": 15
     },
     {
-      "id": 2,
+      "id": 1,
       "startDest": "Warszawa",
       "endDest": "Gdańsk",
       "startDate": "11/12/2021",
@@ -41,7 +41,7 @@
       "price": 25
     },
     {
-      "id": 3,
+      "id": 2,
       "startDest": "Kraśnik",
       "endDest": "Krasnystaw",
       "startDate": "15/12/2021",
@@ -51,7 +51,7 @@
       "price": 4.2
     },
     {
-      "id": 4,
+      "id": 3,
       "startDest": "Lublin",
       "endDest": "Kielce",
       "startDate": "20/01/2022",
@@ -61,5 +61,30 @@
       "price": 40
     }
   ],
-  "cars": [{ "id": 1 }]
+  "cars": [
+    {
+      "id": 0,
+      "mark": "Audi",
+      "model": "A4",
+      "registrationNumber": "LKS 12345",
+      "numberOfSeats": "4",
+      "color": "czerwony jak rosja"
+    },
+    {
+      "id": 1,
+      "mark": "Audi",
+      "model": "A4",
+      "registrationNumber": "LKS 12345",
+      "numberOfSeats": "4",
+      "color": "czerwony jak rosja"
+    },
+    {
+      "id": 2,
+      "mark": "Audi",
+      "model": "A4",
+      "registrationNumber": "LKS 12345",
+      "numberOfSeats": "4",
+      "color": "czerwony jak rosja"
+    }
+  ]
 }

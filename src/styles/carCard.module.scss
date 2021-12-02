@@ -3,8 +3,7 @@
 .card {
   display: flex;
   align-items: center;
-  justify-content: center;
-  column-gap: 40px;
+  column-gap: 100px;
 
   color: vars.$dark;
   font-family: vars.$prim-font;
@@ -17,11 +16,8 @@
   border: 0;
   padding: 20px;
   width: 300px;
-}
 
-.card button {
-  background-color: inherit;
-  border: none;
+  text-decoration: none;
 }
 
 @media screen and (min-width: 769px) {
