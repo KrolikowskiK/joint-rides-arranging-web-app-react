@@ -4,11 +4,15 @@ import { MyTextInput } from "../components/FormComponents";
 import * as Yup from "yup";
 import useAuth from "../components/Auth";
 import * as css from "../styles/signUp.module.scss";
+import ky from "ky";
+import { useLocation, useNavigate } from "react-router";
 
 export default function SignUp() {
-  const { authed } = useAuth();
+  const navigate = useNavigate();
+  const { signin, token } = useAuth();
+  const { state } = useLocation();
 
-  return authed ? (
+  return token ? (
     <h2 className={css.h2}>Już jesteś zalogowany</h2>
   ) : (
     <>
@@ -17,67 +21,104 @@ export default function SignUp() {
         initialValues={{
           name: "",
           email: "",
-          pwd: "",
-          pwdRe: "",
+          password: "",
+          passwordConfirmation: "",
         }}
         validationSchema={Yup.object({
-          name: Yup.string().required("Required"),
-          email: Yup.string().required("Required"),
-          pwd: Yup.string().required("Required"),
-          pwdRe: Yup.string().required("Required"),
+          name: Yup.string().required("Podaj imię"),
+          email: Yup.string()
+            .email("Niewłaściwy format")
+            .required("Podaj adres e-mail"),
+          password: Yup.string()
+            .min(6, ({ min }) => `Hasło powinno mieć co najmniej ${min} znaków`)
+            .required("Podaj hasło"),
+          passwordConfirmation: Yup.string().oneOf(
+            [Yup.ref("password"), null],
+            "Podane hasła nie są takie same"
+          ),
         })}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
+        onSubmit={async (values) => {
+          try {
+            const json = await ky
+              .post(
+                "https://travelapi-app.azurewebsites.net/api/Account/register",
+                {
+                  json: {
+                    name: values.name,
+                    email: values.email,
+                    password: values.password,
+                  },
+                }
+              )
+              .json();
+
+            signin({ token: json.token }).then(() => {
+              const path = state === null ? "/" : state.path;
+              navigate(path);
+            });
+          } catch (error) {
+            console.log(error);
+            if (error.response.text) {
+              error.response.text().then((errorMessage) => {
+                console.log(errorMessage);
+              });
+            } else {
+              console.log("Inny błąd");
+            }
+          }
         }}
       >
-        <Form className={css.form}>
-          <MyTextInput
-            id="name"
-            name="name"
-            type="text"
-            label="Imię"
-            placeholder="Imię"
-            labelclass={css.label}
-            inputclass={css.input}
-            errorclass={css.error}
-          />
-          <MyTextInput
-            id="email"
-            name="email"
-            type="text"
-            label="E-mail"
-            placeholder="E-mail"
-            labelclass={css.label}
-            inputclass={css.input}
-            errorclass={css.error}
-          />
-          <MyTextInput
-            id="pwd"
-            name="pwd"
-            type="text"
-            label="Hasło"
-            placeholder="Hasło"
-            labelclass={css.label}
-            inputclass={css.input}
-            errorclass={css.error}
-          />
-          <MyTextInput
-            id="pwdRe"
-            name="pwdRe"
-            type="text"
-            label="Powtórz hasło"
-            placeholder="Powtórz hasło"
-            labelclass={css.label}
-            inputclass={css.input}
-            errorclass={css.error}
-          />
-          <button type="submit" className={css.button}>
-            Zarejestruj się
-          </button>
-        </Form>
+        {({ isSubmitting }) => (
+          <Form className={css.form}>
+            <MyTextInput
+              id="name"
+              name="name"
+              type="text"
+              label="Imię"
+              placeholder="Imię"
+              labelclass={css.label}
+              inputclass={css.input}
+              errorclass={css.error}
+            />
+            <MyTextInput
+              id="email"
+              name="email"
+              type="text"
+              label="E-mail"
+              placeholder="E-mail"
+              labelclass={css.label}
+              inputclass={css.input}
+              errorclass={css.error}
+            />
+            <MyTextInput
+              id="password"
+              name="password"
+              type="password"
+              label="Hasło"
+              placeholder="Hasło"
+              labelclass={css.label}
+              inputclass={css.input}
+              errorclass={css.error}
+            />
+            <MyTextInput
+              id="passwordConfirmation"
+              name="passwordConfirmation"
+              type="password"
+              label="Powtórz hasło"
+              placeholder="Powtórz hasło"
+              labelclass={css.label}
+              inputclass={css.input}
+              errorclass={css.error}
+            />
+            <button
+              type="submit"
+              className={css.submit}
+              disabled={isSubmitting}
+            >
+              Zarejestruj się
+            </button>
+          </Form>
+        )}
       </Formik>
     </>
   );

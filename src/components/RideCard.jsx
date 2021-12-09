@@ -8,8 +8,6 @@ const time = new URL("../svgs/time.svg", import.meta.url);
 const driver = new URL("../svgs/driver.svg", import.meta.url);
 const price = new URL("../svgs/price.svg", import.meta.url);
 
-//  TODO  add tooltips over icons
-//  TODO  add shadows
 export default function RideCart(props) {
   const rideDetails = props.rideDetails;
   return (

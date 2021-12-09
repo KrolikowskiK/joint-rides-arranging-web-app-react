@@ -6,11 +6,11 @@ import AuthNavbar from "../components/AuthNavbar";
 import * as css from "../styles/app.module.scss";
 
 export default function App() {
-  const { authed } = useAuth();
+  const { token } = useAuth();
 
   return (
     <>
-      {authed ? <AuthNavbar /> : <Navbar />}
+      {token ? <AuthNavbar /> : <Navbar />}
       <main className={css.main}>
         <Outlet />
       </main>

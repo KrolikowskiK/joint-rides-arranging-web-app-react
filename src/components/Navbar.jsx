@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import * as css from "../styles/navbar.module.scss";
 
-// TODO add active links highlighting (NavLink)
-// TODO add form validation
 export default function Navbar() {
   const [isCollapsed, setIsCollapsed] = useState(true);
 

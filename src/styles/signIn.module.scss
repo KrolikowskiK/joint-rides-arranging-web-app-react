@@ -35,7 +35,13 @@
   color: vars.$dark;
 }
 
-.button {
+.error {
+  font-family: vars.$sec-font;
+  color: vars.$dark;
+  color: red;
+}
+
+.submit {
   width: 100%;
   margin: 5px auto;
   padding: 10px 0;
@@ -43,6 +49,10 @@
   border: 0;
   color: vars.$white;
   background-color: vars.$medium;
+}
+
+.submit:disabled {
+  background-color: grey;
 }
 
 .h2 {

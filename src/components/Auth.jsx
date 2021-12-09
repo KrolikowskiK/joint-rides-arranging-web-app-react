@@ -1,28 +1,34 @@
 import * as React from "react";
+import jwt_decode from "jwt-decode";
 
 const authContext = React.createContext();
 
 const checkToken = () => {
-  if (localStorage.getItem("token") !== null) return true;
-  return false;
+  try {
+    const token = localStorage.getItem("token");
+    jwt_decode(token);
+    return token;
+  } catch (error) {
+    return null;
+  }
 };
 
 function useAuth() {
-  const [authed, setAuthed] = React.useState(checkToken());
+  const [token, setToken] = React.useState(checkToken());
 
   return {
-    authed,
-    signin() {
+    token,
+    signin(data) {
       return new Promise((res) => {
-        localStorage.setItem("token", "1234");
-        setAuthed(true);
+        localStorage.setItem("token", data.token);
+        setToken(data.token);
         res();
       });
     },
     signout() {
       return new Promise((res) => {
         localStorage.removeItem("token");
-        setAuthed(false);
+        setToken(null);
         res();
       });
     },

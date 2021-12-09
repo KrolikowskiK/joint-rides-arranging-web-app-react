@@ -1,0 +1,6 @@
+Add active links highlighting (NavLink)
+Restrict clickable navlink area to text area
+Add tooltips over icons
+Add shadows
+Add more expressive load animations
+Refactor CSS - use StyledComponents
