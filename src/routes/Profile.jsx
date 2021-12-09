@@ -1,117 +1,204 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form } from "formik";
-import { MyTextInput, MyTextArea } from "../components/FormComponents";
+import {
+  MyTextInput,
+  MyTextArea,
+  CustomSelect,
+} from "../components/FormComponents";
 import * as Yup from "yup";
 import * as css from "../styles/profile.module.scss";
-const avatar = new URL("../svgs/avatar.svg", import.meta.url);
+import Opinion from "../components/Opinion";
+import useCustomKyApi from "../components/KyApi";
 
-export default function Profile() {
-  return (
+const Profile = () => {
+  const api = useCustomKyApi();
+  const [userDetails, setUserDetails] = useState(null);
+
+  useEffect(async () => {
+    try {
+      const userDetails = await api
+        .get("https://travelapi-app.azurewebsites.net/api/Users/user")
+        .json();
+      setUserDetails({
+        id: userDetails.member.id || "",
+        userHash: userDetails.member.userHash || "",
+        email: userDetails.email || "",
+        name: userDetails.member.name || "",
+        gender: userDetails.member.gender || "",
+        description: userDetails.member.description || "",
+        opinions: userDetails.member.opinions || "",
+      });
+    } catch (error) {
+      if (error.response && error.response.text) {
+        error.response.text().then((errorMessage) => {
+          console.log(errorMessage);
+        });
+      } else {
+        console.log("Inny błąd: ", error);
+      }
+      setUserDetails({
+        id: "",
+        userHash: "",
+        email: "",
+        name: "",
+        gender: "",
+        description: "",
+        opinions: "",
+      });
+    }
+  }, []);
+
+  return userDetails === null ? (
+    <h2>Ładowanie</h2>
+  ) : (
     <div className={css.profile}>
       <h1 className={css.mainHeader}>Twój profil</h1>
-      <Formik
-        initialValues={{
-          name: "",
-          email: "",
-          myDescription: "",
-          oldPwd: "",
-          newPwd: "",
-          newPwdRe: "",
-        }}
-        validationSchema={Yup.object({
-          name: Yup.string().required("Required"),
-          email: Yup.string().required("Required"),
-          myDescription: Yup.string().required("Required"),
-          oldPwd: Yup.string().required("Required"),
-          newPwd: Yup.string().required("Required"),
-          newPwdRe: Yup.string().required("Required"),
-        })}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
-        }}
-      >
-        <Form noValidate className={css.form}>
-          <div className={css.left}>
-            <object
-              data={avatar}
-              width="250"
-              height="250"
-              title="avatar"
-            ></object>
-            <MyTextArea
-              label="Twój opis"
-              id="myDescription"
-              name="myDescription"
-              placeholder="Krótki opis twojej osoby"
-              labelclass={css.label}
-              inputclass={css.textArea}
-              errorclass={css.error}
-            />
-          </div>
-
-          <div className={css.right}>
-            <h2 className={css.secondaryHeader}>Zmień dane osobowe</h2>
-            <MyTextInput
-              label="Imię"
-              id="name"
-              name="name"
-              type="text"
-              placeholder="Imię"
-              labelclass={css.label}
-              inputclass={css.input}
-              errorclass={css.error}
-            />
-            <h2 className={css.secondaryHeader}>Zmień adres e-mail</h2>
-            <MyTextInput
-              label="E-mail"
-              id="email"
-              name="email"
-              type="text"
-              placeholder="E-mail"
-              labelclass={css.label}
-              inputclass={css.input}
-              errorclass={css.error}
-            />
-            <h2 className={css.secondaryHeader}>Zmień hasło</h2>
-            <MyTextInput
-              label="Stare hasło"
-              id="oldPwd"
-              name="oldPwd"
-              type="text"
-              placeholder="Stare hasło"
-              labelclass={css.label}
-              inputclass={css.input}
-              errorclass={css.error}
-            />
-            <MyTextInput
-              label="Nowe hasło"
-              id="newPwd"
-              name="newPwd"
-              type="text"
-              placeholder="Nowe hasło"
-              labelclass={css.label}
-              inputclass={css.input}
-              errorclass={css.error}
-            />
-            <MyTextInput
-              label="Powtórz nowe hasło"
-              id="newPwdRe"
-              name="newPwdRe"
-              type="text"
-              placeholder="Powtórz nowe hasło"
-              labelclass={css.label}
-              inputclass={css.input}
-              errorclass={css.error}
-            />
-            <button className={css.button} type="submit">
-              Zapisz
-            </button>
-          </div>
-        </Form>
-      </Formik>
+      <div className={css.content}>
+        <div className={css.opinions}>
+          <h2>Twoje opinie</h2>
+          <Opinion />
+        </div>
+        <Formik
+          initialValues={{
+            name: userDetails.name,
+            email: userDetails.email,
+            description: userDetails.description,
+            gender: userDetails.gender,
+            currentPassword: "",
+            newPassword: "",
+            newPasswordConfirmation: "",
+          }}
+          validationSchema={Yup.object({
+            name: Yup.string().required("Podaj imię"),
+            email: Yup.string()
+              .email("Niewłaściwy format")
+              .required("Podaj adres e-mail"),
+            description: Yup.string(),
+            gender: Yup.string(),
+            currentPassword: Yup.string().min(
+              6,
+              ({ min }) => `Hasło powinno mieć co najmniej ${min} znaków`
+            ),
+            newPassword: Yup.string().min(
+              6,
+              ({ min }) => `Hasło powinno mieć co najmniej ${min} znaków`
+            ),
+            newPasswordConfirmation: Yup.string().oneOf(
+              [Yup.ref("newPassword"), null],
+              "Podane hasła nie są takie same"
+            ),
+          })}
+          onSubmit={async (values) => {
+            try {
+              const response = await api
+                .patch("https://travelapi-app.azurewebsites.net/api/Users", {
+                  json: {
+                    name: values.name,
+                    email: values.email,
+                    // password: values.password,
+                    description: values.description,
+                    gender: values.gender,
+                  },
+                })
+                .json();
+              console.log(response);
+            } catch (error) {
+              console.log(error);
+              if (error.response.text) {
+                error.response.text().then((errorMessage) => {
+                  console.log(errorMessage);
+                });
+              } else {
+                console.log("Inny błąd");
+              }
+            }
+          }}
+        >
+          {({ isSubmitting }) => (
+            <Form noValidate className={css.form}>
+              <h2 className={css.secondaryHeader}>Zmień dane osobowe</h2>
+              <MyTextInput
+                label="Imię"
+                id="name"
+                name="name"
+                type="text"
+                placeholder="Imię"
+                labelclass={css.label}
+                inputclass={css.input}
+                errorclass={css.error}
+              />
+              <CustomSelect
+                label="Płeć"
+                id="gender"
+                name="gender"
+                labelclass={css.label}
+                inputclass={css.input}
+                errorclass={css.error}
+              />
+              <MyTextArea
+                label="Twój opis"
+                id="description"
+                name="description"
+                placeholder="Krótki opis twojej osoby"
+                labelclass={css.label}
+                inputclass={css.textArea}
+                errorclass={css.error}
+              />
+              <h2 className={css.secondaryHeader}>Zmień adres e-mail</h2>
+              <MyTextInput
+                label="E-mail"
+                id="email"
+                name="email"
+                type="text"
+                placeholder="E-mail"
+                labelclass={css.label}
+                inputclass={css.input}
+                errorclass={css.error}
+              />
+              <h2 className={css.secondaryHeader}>Zmień hasło</h2>
+              <MyTextInput
+                label="Obecne hasło"
+                id="currentPassword"
+                name="currentPassword"
+                type="password"
+                placeholder="Obecne hasło"
+                labelclass={css.label}
+                inputclass={css.input}
+                errorclass={css.error}
+              />
+              <MyTextInput
+                label="Nowe hasło"
+                id="newPassword"
+                name="newPassword"
+                type="password"
+                placeholder="Nowe hasło"
+                labelclass={css.label}
+                inputclass={css.input}
+                errorclass={css.error}
+              />
+              <MyTextInput
+                label="Powtórz nowe hasło"
+                id="newPasswordConfirmation"
+                name="newPasswordConfirmation"
+                type="password"
+                placeholder="Powtórz nowe hasło"
+                labelclass={css.label}
+                inputclass={css.input}
+                errorclass={css.error}
+              />
+              <button
+                className={css.button}
+                type="submit"
+                disabled={isSubmitting}
+              >
+                Zapisz
+              </button>
+            </Form>
+          )}
+        </Formik>
+      </div>
     </div>
   );
-}
+};
+
+export default Profile;

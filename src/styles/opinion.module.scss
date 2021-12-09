@@ -1,0 +1,38 @@
+@use "vars.scss" as vars;
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
+
+.opinion {
+  display: grid;
+  grid:
+    "stars date" auto
+    "text text" / 1fr 1fr;
+
+  background-color: white;
+  border-radius: 5px;
+  border: none;
+
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.stars {
+  grid-area: stars;
+}
+
+.date {
+  grid-area: date;
+  place-self: center end;
+
+  font-family: vars.$sec-font;
+  color: vars.$dark;
+}
+
+.text {
+  grid-area: text;
+  font-family: vars.$sec-font;
+  color: vars.$dark;
+}
+
+.checked {
+  color: orange;
+}

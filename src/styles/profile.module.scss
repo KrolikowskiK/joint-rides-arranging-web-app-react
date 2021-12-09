@@ -14,27 +14,28 @@
   font-family: vars.$prim-font;
 }
 
+.content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  width: 80%;
+}
+
+.opinions {
+  order: 1;
+
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 0;
+
+  color: vars.$dark;
+  font-family: vars.$prim-font;
+}
+
 .form {
   display: flex;
   flex-direction: column;
-  row-gap: 15px;
-}
-
-.left {
-  display: flex;
-  flex-direction: column;
-}
-
-.left > object {
-  margin: 0 auto;
-}
-
-.right {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 300px;
-  margin: 0 auto;
+  flex: 1 0 0;
 }
 
 .secondaryHeader {
@@ -72,6 +73,7 @@
 .error {
   font-family: vars.$sec-font;
   color: vars.$dark;
+  color: red;
 }
 
 .textArea {
@@ -103,10 +105,15 @@
   .mainHeader {
     margin-top: 30px;
   }
-  .form {
-    display: flex;
+}
+
+@media screen and (min-width: 1025px) {
+  .content {
     flex-direction: row;
-    justify-content: center;
-    column-gap: 50px;
+    column-gap: 20px;
+  }
+
+  .opinions {
+    order: 0;
   }
 }
