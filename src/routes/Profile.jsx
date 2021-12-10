@@ -131,6 +131,10 @@ const Profile = () => {
                 label="Płeć"
                 id="gender"
                 name="gender"
+                options={[
+                  { key: "men", value: "Mężczyzna" },
+                  { key: "women", value: "Kobieta" },
+                ]}
                 labelclass={css.label}
                 inputclass={css.input}
                 errorclass={css.error}

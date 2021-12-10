@@ -47,9 +47,15 @@ export const MyTextArea = ({
   );
 };
 
-export const DateTimePicker = ({ label, labelclass, inputclass, ...props }) => {
+export const DateTimePicker = ({
+  label,
+  labelclass,
+  inputclass,
+  errorclass,
+  ...props
+}) => {
   const { setFieldValue } = useFormikContext();
-  const [field] = useField(props);
+  const [field, meta] = useField(props);
   return (
     <>
       <label className={labelclass} htmlFor={props.id || props.name}>
@@ -65,10 +71,12 @@ export const DateTimePicker = ({ label, labelclass, inputclass, ...props }) => {
         {...props}
         selected={(field.value && new Date(field.value)) || null}
         onChange={(val) => {
-          console.log(val);
           setFieldValue(field.name, val);
         }}
       />
+      {meta.touched && meta.error ? (
+        <div className={errorclass}>{meta.error}</div>
+      ) : null}
     </>
   );
 };
@@ -78,18 +86,29 @@ export const CustomSelect = ({
   labelclass,
   inputclass,
   errorclass,
+  options,
   ...props
 }) => {
   const [field, meta] = useField(props);
+
+  let optionsList = [
+    <option key="empty" value="" style={{ display: "none" }}></option>,
+  ];
+  options.forEach((element) => {
+    optionsList.push(
+      <option key={element.key} value={element.key}>
+        {element.value}
+      </option>
+    );
+  });
+
   return (
     <>
       <label className={labelclass} htmlFor={props.id || props.name}>
         {label}
       </label>
       <select className={inputclass} {...field} {...props}>
-        <option value="" style={{ display: "none" }}></option>
-        <option value="men">Mężczyzna</option>
-        <option value="women">Kobieta</option>
+        {optionsList}
       </select>
       {meta.touched && meta.error ? (
         <div className={errorclass}>{meta.error}</div>
