@@ -4,3 +4,4 @@ Add tooltips over icons
 Add shadows
 Add more expressive load animations
 Refactor CSS - use StyledComponents
+Add second request if timedOut (after that show response about failure and ask to refresh)

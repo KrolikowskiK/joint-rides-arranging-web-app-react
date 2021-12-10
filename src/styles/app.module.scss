@@ -3,6 +3,7 @@
 .main {
   background-color: vars.$light;
   flex-grow: 1;
+  padding-bottom: 20px;
 }
 
 @media screen and (min-width: 769px) {

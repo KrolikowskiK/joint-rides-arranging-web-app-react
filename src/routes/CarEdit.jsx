@@ -1,25 +1,65 @@
+import React, { useEffect, useState } from "react";
 import { Formik, Form } from "formik";
 import { MyTextInput } from "../components/FormComponents";
 import * as Yup from "yup";
 import * as css from "../styles/carAdd.module.scss";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import useCustomKyApi from "../components/KyApi";
 
-const CarAdd = () => {
+const CarEdit = () => {
+  const { carId } = useParams();
   const navigate = useNavigate();
   const api = useCustomKyApi();
+  const [carDetails, setCarDetails] = useState(null);
 
-  return (
+  useEffect(async () => {
+    try {
+      const details = await api
+        .get(`https://travelapi-app.azurewebsites.net/api/Cars/${carId}`)
+        .json();
+      console.log(details);
+      setCarDetails({
+        id: details.id || "",
+        mark: details.mark || "",
+        model: details.model || "",
+        registrationNumber: details.registrationNumber || "",
+        productionYear: details.productionYear || "",
+        numberOfSeats: details.numberOfSeats || "",
+        color: details.color || "",
+      });
+    } catch (error) {
+      if (error.response && error.response.text) {
+        error.response.text().then((errorMessage) => {
+          console.log(errorMessage);
+        });
+      } else {
+        console.log("Inny błąd: ", error);
+      }
+      setCarDetails({
+        id: "",
+        mark: "",
+        model: "",
+        registrationNumber: "",
+        productionYear: "",
+        numberOfSeats: "",
+        color: "",
+      });
+    }
+  }, []);
+
+  return carDetails === null ? (
+    <h2>Ładowanie danych pojazdu</h2>
+  ) : (
     <>
-      <h1 className={css.header}>Nowy samochód</h1>
+      <h1 className={css.header}>Zmień dane samochodu</h1>
       <Formik
         initialValues={{
-          mark: "",
-          model: "",
-          registrationNumber: "",
-          productionYear: "",
-          numberOfSeats: "",
-          color: "",
+          mark: carDetails.mark,
+          model: carDetails.model,
+          registrationNumber: carDetails.registrationNumber,
+          productionYear: carDetails.productionYear,
+          numberOfSeats: carDetails.numberOfSeats,
+          color: carDetails.color,
         }}
         validationSchema={Yup.object({
           mark: Yup.string().required("Podaj markę samochodu"),
@@ -40,10 +80,11 @@ const CarAdd = () => {
         })}
         onSubmit={async (values) => {
           try {
-            await api.post(
-              "https://travelapi-app.azurewebsites.net/api/Cars/AddCar",
+            await api.patch(
+              "https://travelapi-app.azurewebsites.net/api/Cars/EditCar",
               {
                 json: {
+                  id: carDetails.id,
                   mark: values.mark,
                   model: values.model,
                   registrationNumber: values.registrationNumber,
@@ -158,4 +199,4 @@ const CarAdd = () => {
   );
 };
 
-export default CarAdd;
+export default CarEdit;

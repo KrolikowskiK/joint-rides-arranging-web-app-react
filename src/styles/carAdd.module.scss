@@ -8,23 +8,25 @@
 }
 
 .form {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 20px;
+
+  color: vars.$dark;
+  font-family: vars.$sec-font;
+}
+
+.fields {
   display: grid;
   grid:
     "mark"
     "model"
     "registrationNumber"
+    "productionYear"
     "numberOfSeats"
     "color"
-    "button"
     / 1fr;
   gap: 15px 30px;
-
-  width: 80%;
-  margin: 0 auto;
-  margin-top: 20px;
-
-  font-family: vars.$sec-font;
-  color: vars.$dark;
 }
 
 .label {
@@ -39,11 +41,19 @@
   width: 100%;
   margin: 0 auto;
   margin-top: 5px;
+  font-family: vars.$sec-font;
+  color: vars.$dark;
 }
 
 .input::placeholder {
   font-family: vars.$sec-font;
   color: vars.$dark;
+}
+
+.error {
+  font-family: vars.$sec-font;
+  color: vars.$dark;
+  color: red;
 }
 
 .mark {
@@ -58,6 +68,10 @@
   grid-area: registrationNumber;
 }
 
+.productionYear {
+  grid-area: productionYear;
+}
+
 .numberOfSeats {
   grid-area: numberOfSeats;
 }
@@ -66,23 +80,34 @@
   grid-area: color;
 }
 
-.button {
-  grid-area: button;
-
-  color: vars.$white;
+.buttons {
   margin-top: 20px;
-  padding: 10px 0;
+
+  display: grid;
+  grid:
+    "submit ."
+    / 1fr 1fr;
+  gap: 15px 30px;
+}
+
+.submit {
+  grid-area: submit;
+
+  padding: 10px 15px;
   border-radius: 5px;
   border: 0;
   background-color: vars.$medium;
+
+  color: vars.$white;
+  font-family: vars.$sec-font;
 }
 
 @media screen and (min-width: 481px) {
-  .form {
+  .fields {
     grid:
       "mark model"
-      "registrationNumber numberOfSeats"
-      "color button"
+      "registrationNumber productionYear"
+      "numberOfSeats color"
       / 1fr 1fr;
   }
 }

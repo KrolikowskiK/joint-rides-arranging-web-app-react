@@ -7,11 +7,13 @@ import Home from "./routes/Home";
 import Rides from "./routes/Rides";
 import RideDetails from "./routes/RideDetails";
 import RideAdd from "./routes/RideAdd";
+import RideEdit from "./routes/RideEdit";
 import Friends from "./routes/Friends";
 import Profile from "./routes/Profile";
 import Cars from "./routes/Cars";
 import CarAdd from "./routes/CarAdd";
 import CarDetails from "./routes/CarDetails";
+import CarEdit from "./routes/CarEdit";
 import SignIn from "./routes/SignIn";
 import SignUp from "./routes/SignUp";
 import SignOut from "./routes/SignOut";
@@ -45,6 +47,14 @@ ReactDOM.render(
             element={
               <RequireAuth>
                 <RideDetails />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="rides/:rideId/edit"
+            element={
+              <RequireAuth>
+                <RideEdit />
               </RequireAuth>
             }
           />
@@ -86,6 +96,14 @@ ReactDOM.render(
             element={
               <RequireAuth>
                 <CarDetails />{" "}
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="cars/:carId/edit"
+            element={
+              <RequireAuth>
+                <CarEdit />
               </RequireAuth>
             }
           />

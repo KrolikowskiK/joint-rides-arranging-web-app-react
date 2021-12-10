@@ -1,21 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CarsListHeader from "./CarsListHeader";
 import CarCard from "./CarCard";
 import * as css from "../styles/carsList.module.scss";
-import data from "../data.json";
+import useCustomKyApi from "../components/KyApi";
 
-export default function CarsList() {
-  let carsDetails = data.cars;
-  let cards = [];
+const CarsList = () => {
+  const api = useCustomKyApi();
+  const [cards, setCards] = useState();
 
-  for (let i = 0; i < 3; i++) {
-    cards.push(<CarCard key={carsDetails[i].id} carDetails={carsDetails[i]} />);
-  }
+  useEffect(async () => {
+    try {
+      let cards = [];
+      const cars = await api
+        .get("https://travelapi-app.azurewebsites.net/api/Cars")
+        .json();
 
-  return (
+      cars.forEach((car) => {
+        cards.push(<CarCard key={car.id} carDetails={car} />);
+      });
+
+      setCards(cards);
+    } catch (error) {
+      if (error.response && error.response.text) {
+        error.response.text().then((errorMessage) => {
+          console.log(errorMessage);
+        });
+      } else {
+        console.log("Inny błąd: ", error);
+      }
+    }
+  }, []);
+
+  return cards ? (
     <div className={css.carsList}>
       <CarsListHeader />
       <div className={css.cards}>{cards}</div>
     </div>
+  ) : (
+    <h2>Ładowanie listy pojazdów</h2>
   );
-}
+};
+
+export default CarsList;
