@@ -1,0 +1,22 @@
+@use "vars.scss" as vars;
+
+.popup {
+  background-color: white;
+  color: vars.$medium;
+  font-family: vars.$sec-font;
+  padding: 5px 100px;
+  position: fixed;
+  bottom: 30px;
+  border-radius: 5px;
+  border: solid 1px vars.$medium;
+  animation: fade 2s 1 ease-out 3s;
+}
+
+@keyframes fade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
