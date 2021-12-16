@@ -7,7 +7,7 @@ const date = new URL("../svgs/date.svg", import.meta.url);
 const driver = new URL("../svgs/driver.svg", import.meta.url);
 const price = new URL("../svgs/price.svg", import.meta.url);
 
-export default function RideCart(props) {
+const RideCard = (props) => {
   const rideDetails = props.rideDetails;
   return (
     <Link to={"/rides/" + rideDetails.id.toString()} className={css.ride}>
@@ -42,4 +42,6 @@ export default function RideCart(props) {
       </div>
     </Link>
   );
-}
+};
+
+export default RideCard;
