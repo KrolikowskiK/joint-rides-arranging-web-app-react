@@ -9,10 +9,13 @@ import * as Yup from "yup";
 import * as css from "../styles/profile.module.scss";
 import Opinion from "../components/Opinion";
 import useCustomKyApi from "../components/KyApi";
+import LoadingAnimation from "../components/LoadingAnimation/LoadingAnimation";
+import Popup from "../components/Popup/Popup";
 
 const Profile = () => {
   const api = useCustomKyApi();
   const [userDetails, setUserDetails] = useState(null);
+  const [popup, setPopup] = useState(null);
 
   useEffect(async () => {
     try {
@@ -26,16 +29,17 @@ const Profile = () => {
         name: userDetails.member.name || "",
         gender: userDetails.member.gender || "",
         description: userDetails.member.description || "",
-        opinions: userDetails.member.opinions || "",
+        opinions: userDetails.member.opinions || [],
       });
     } catch (error) {
-      if (error.response && error.response.text) {
-        error.response.text().then((errorMessage) => {
-          console.log(errorMessage);
-        });
-      } else {
-        console.log("Inny błąd: ", error);
-      }
+      setPopup(
+        <Popup
+          message="Nie udało się pobrać danych użytkownika"
+          onAnimationEnd={() => {
+            setPopup(null);
+          }}
+        />
+      );
       setUserDetails({
         id: "",
         userHash: "",
@@ -43,13 +47,13 @@ const Profile = () => {
         name: "",
         gender: "",
         description: "",
-        opinions: "",
+        opinions: [],
       });
     }
   }, []);
 
   return userDetails === null ? (
-    <h2>Ładowanie</h2>
+    <LoadingAnimation />
   ) : (
     <div className={css.profile}>
       <h1 className={css.mainHeader}>Twój profil</h1>
@@ -90,27 +94,35 @@ const Profile = () => {
           })}
           onSubmit={async (values) => {
             try {
-              const response = await api
-                .patch("https://travelapi-app.azurewebsites.net/api/Users", {
+              await api.patch(
+                "https://travelapi-app.azurewebsites.net/api/Users",
+                {
                   json: {
                     name: values.name,
                     email: values.email,
-                    // password: values.password,
+                    password: values.newPassword,
                     description: values.description,
                     gender: values.gender,
                   },
-                })
-                .json();
-              console.log(response);
+                }
+              );
+              setPopup(
+                <Popup
+                  message="Zapisano zmiany"
+                  onAnimationEnd={() => {
+                    setPopup(null);
+                  }}
+                />
+              );
             } catch (error) {
-              console.log(error);
-              if (error.response.text) {
-                error.response.text().then((errorMessage) => {
-                  console.log(errorMessage);
-                });
-              } else {
-                console.log("Inny błąd");
-              }
+              setPopup(
+                <Popup
+                  message="Nie udało się zapisać zmian"
+                  onAnimationEnd={() => {
+                    setPopup(null);
+                  }}
+                />
+              );
             }
           }}
         >
@@ -201,6 +213,7 @@ const Profile = () => {
           )}
         </Formik>
       </div>
+      {popup}
     </div>
   );
 };
