@@ -6,7 +6,6 @@
     "start" 35px
     "end" 35px
     "date" 35px
-    "time" 35px
     "driver" 35px
     "price" 35px
     / 1fr 1fr;
@@ -45,10 +44,6 @@
   grid-area: date;
 }
 
-.time {
-  grid-area: time;
-}
-
 .driver {
   grid-area: driver;
 }
@@ -61,8 +56,8 @@
   .ride {
     grid:
       "start date" 35px
-      "end time" 35px
-      "driver price" 35px
+      "end driver" 35px
+      "price ." 35px
       / 1fr 1fr;
   }
 }
@@ -70,8 +65,8 @@
 @media screen and (min-width: 1025px) {
   .ride {
     grid:
-      "start date driver" 35px
-      "end time price" 35px
+      "start driver date" 35px
+      "end price ." 35px
       / 1fr 1fr 1fr;
   }
 }
