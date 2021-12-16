@@ -39,9 +39,6 @@ export default function RidesListHeader(props) {
         </>
       );
       break;
-    case "recommended":
-      header = <h1 className={css.header}>Rekomendowane przejazdy</h1>;
-      break;
     case "search":
       header = <h1 className={css.header}>Znalezione przejazdy</h1>;
       break;
