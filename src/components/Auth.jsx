@@ -1,23 +1,26 @@
-import * as React from "react";
+import React, { useState, createContext } from "react";
 import jwt_decode from "jwt-decode";
 
-const authContext = React.createContext();
+const authContext = createContext();
 
 const checkToken = () => {
   try {
     const token = localStorage.getItem("token");
-    jwt_decode(token);
-    return token;
+    const { userId } = jwt_decode(token);
+    return { token: token, userId: userId };
   } catch (error) {
-    return null;
+    return {};
   }
 };
 
-function useAuth() {
-  const [token, setToken] = React.useState(checkToken());
+const useAuth = () => {
+  let credentials = checkToken();
+  const [token, setToken] = useState(credentials.token);
+  const [userId, setUserId] = useState(credentials.userId);
 
   return {
     token,
+    userId,
     signin(data) {
       return new Promise((res) => {
         localStorage.setItem("token", data.token);
@@ -33,14 +36,17 @@ function useAuth() {
       });
     },
   };
-}
+};
 
-export function AuthProvider({ children }) {
+const AuthProvider = ({ children }) => {
   const auth = useAuth();
 
   return <authContext.Provider value={auth}>{children}</authContext.Provider>;
-}
+};
 
-export default function AuthConsumer() {
+const authConsumer = () => {
   return React.useContext(authContext);
-}
+};
+
+export { AuthProvider };
+export default authConsumer;
