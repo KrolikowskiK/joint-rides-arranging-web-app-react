@@ -6,20 +6,23 @@ import useCustomKyApi from "../components/KyApi";
 
 const CarsList = () => {
   const api = useCustomKyApi();
-  const [cards, setCards] = useState();
+  const [carCards, setCarCards] = useState();
 
   useEffect(async () => {
     try {
-      let cards = [];
       const cars = await api
         .get("https://travelapi-app.azurewebsites.net/api/Cars")
         .json();
 
-      cars.forEach((car) => {
-        cards.push(<CarCard key={car.id} carDetails={car} />);
-      });
-
-      setCards(cards);
+      if (cars.error === "Nie posiadasz samochodów") {
+        setCarCards(<h2 className={css.header}>Nie posiadasz samochodów</h2>);
+      } else {
+        setCarCards(
+          cars.map((carDetails) => {
+            return <CarCard key={carDetails.id} carDetails={carDetails} />;
+          })
+        );
+      }
     } catch (error) {
       if (error.response && error.response.text) {
         error.response.text().then((errorMessage) => {
@@ -31,10 +34,10 @@ const CarsList = () => {
     }
   }, []);
 
-  return cards ? (
+  return carCards ? (
     <div className={css.carsList}>
       <CarsListHeader />
-      <div className={css.cards}>{cards}</div>
+      <div className={css.carCards}>{carCards}</div>
     </div>
   ) : (
     <h2>Ładowanie listy pojazdów</h2>
