@@ -65,6 +65,7 @@ export const DateTimePicker = ({
         locale="pl"
         timeFormat="HH:mm"
         dateFormat="dd/MM/yyyy HH:mm"
+        placeholderText="Wybierz datę i czas wyjazdu"
         showTimeSelect
         className={inputclass}
         {...field}
