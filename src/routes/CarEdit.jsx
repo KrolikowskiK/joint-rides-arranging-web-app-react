@@ -17,7 +17,6 @@ const CarEdit = () => {
       const details = await api
         .get(`https://travelapi-app.azurewebsites.net/api/Cars/${carId}`)
         .json();
-      console.log(details);
       setCarDetails({
         id: details.id || "",
         mark: details.mark || "",
