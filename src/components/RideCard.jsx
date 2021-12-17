@@ -1,44 +1,50 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import * as css from "../styles/rideCard.module.scss";
-const start = new URL("../svgs/start.svg", import.meta.url);
-const end = new URL("../svgs/end.svg", import.meta.url);
-const date = new URL("../svgs/date.svg", import.meta.url);
-const driver = new URL("../svgs/driver.svg", import.meta.url);
-const price = new URL("../svgs/price.svg", import.meta.url);
+const startSVG = new URL("../svgs/start.svg", import.meta.url);
+const endSVG = new URL("../svgs/end.svg", import.meta.url);
+const dateSVG = new URL("../svgs/date.svg", import.meta.url);
+const driverSVG = new URL("../svgs/driver.svg", import.meta.url);
+const priceSVG = new URL("../svgs/price.svg", import.meta.url);
 
 const RideCard = (props) => {
-  const rideDetails = props.rideDetails;
+  const { id, startDest, endDest, startDateAndTime, driver, price } =
+    props.rideDetails;
   return (
-    <Link to={"/rides/" + rideDetails.id.toString()} className={css.ride}>
+    <Link to={"/rides/" + id.toString()} className={css.ride}>
       <div className={css.start}>
-        <object width="20" height="35" data={start} title="start"></object>
-        <div>{rideDetails.startDest}</div>
+        <object width="20" height="35" data={startSVG} title="start"></object>
+        <div>{startDest}</div>
       </div>
 
       <div className={css.end}>
-        <object width="20" height="35" data={end} title="end"></object>
-        <div>{rideDetails.endDest}</div>
+        <object width="20" height="35" data={endSVG} title="end"></object>
+        <div>{endDest}</div>
       </div>
 
       <div className={css.date}>
-        <object height="35px" width="35px" data={date} title="date"></object>
-        <div>{rideDetails.startDateAndTime}</div>
+        <object height="35px" width="35px" data={dateSVG} title="date"></object>
+        <div>{startDateAndTime}</div>
       </div>
 
       <div className={css.driver}>
         <object
           height="35px"
           width="35px"
-          data={driver}
+          data={driverSVG}
           title="driver"
         ></object>
-        <div>{rideDetails.driver}</div>
+        <div>{driver}</div>
       </div>
 
       <div className={css.price}>
-        <object height="26px" width="35px" data={price} title="price"></object>
-        <div>{rideDetails.price} zł</div>
+        <object
+          height="26px"
+          width="35px"
+          data={priceSVG}
+          title="price"
+        ></object>
+        <div>{price} zł</div>
       </div>
     </Link>
   );
