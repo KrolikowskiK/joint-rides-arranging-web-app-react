@@ -45,6 +45,9 @@ export default function RidesListHeader(props) {
     case "last":
       header = <h1 className={css.header}>Ostatnie przejazdy</h1>;
       break;
+    case "none":
+      header = <h1 className={css.header}>Nie znaleziono przejazdów</h1>;
+      break;
     default:
       header = <h1 className={css.header}>Przejazdy</h1>;
   }

@@ -24,12 +24,13 @@
 }
 
 .input {
-  //   width: 80%;
+  width: 100%;
   border-radius: 5px;
   border: 0;
   font-family: vars.$sec-font;
   color: vars.$dark;
   padding: 10px 15px;
+  background-color: white;
 }
 
 .input::placeholder {
@@ -40,6 +41,7 @@
 .error {
   font-family: vars.$sec-font;
   color: vars.$dark;
+  color: red;
 }
 
 .button {

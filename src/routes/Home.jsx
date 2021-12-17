@@ -8,7 +8,8 @@ import { formatDate } from "../utils";
 import Popup from "../components/Popup/Popup";
 
 export default function Home() {
-  const [rideCards, setRideCards] = useState([]);
+  const [rideCards, setRideCards] = useState();
+  const [headerType, setHeaderType] = useState("last");
   const [popup, setPopup] = useState(null);
 
   useEffect(async () => {
@@ -31,6 +32,7 @@ export default function Home() {
         })
       );
     } catch (error) {
+      setRideCards(null);
       setPopup(
         <Popup
           message="Nie udało się pobrać ostatnich przejazdów"
@@ -44,10 +46,19 @@ export default function Home() {
 
   return (
     <>
-      <RidesSearchForm />
-      <RidesListHeader type="last" />
-      {rideCards.length > 0 ? rideCards : <LoadingAnimation />}
-      {popup}
+      <RidesSearchForm
+        setRideCards={setRideCards}
+        setHeaderType={setHeaderType}
+        setPopup={setPopup}
+      />
+      <RidesListHeader type={headerType} />
+      {rideCards === undefined ? (
+        <LoadingAnimation />
+      ) : rideCards === null ? (
+        popup
+      ) : (
+        rideCards
+      )}
     </>
   );
 }
