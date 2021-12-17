@@ -4,9 +4,13 @@
   background-color: white;
   color: vars.$medium;
   font-family: vars.$sec-font;
-  padding: 5px 100px;
+  padding: 5px 15px;
+  width: 80%;
   position: fixed;
   bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
   border-radius: 5px;
   border: solid 1px vars.$medium;
   animation: fade 2s 1 ease-out 3s;
@@ -18,5 +22,12 @@
   }
   to {
     opacity: 0;
+  }
+}
+
+@media (min-width: 769px) {
+  .popup {
+    width: max-content;
+    padding: 5px 50px;
   }
 }
