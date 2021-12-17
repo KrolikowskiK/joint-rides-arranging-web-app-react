@@ -49,6 +49,7 @@ export const MyTextArea = ({
 
 export const DateTimePicker = ({
   label,
+  placeholder,
   labelclass,
   inputclass,
   errorclass,
@@ -65,7 +66,7 @@ export const DateTimePicker = ({
         locale="pl"
         timeFormat="HH:mm"
         dateFormat="dd/MM/yyyy HH:mm"
-        placeholderText="Wybierz datę i czas wyjazdu"
+        placeholderText={placeholder}
         showTimeSelect
         className={inputclass}
         {...field}
