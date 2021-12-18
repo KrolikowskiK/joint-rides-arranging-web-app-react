@@ -55,8 +55,9 @@ export const DateTimePicker = ({
   errorclass,
   ...props
 }) => {
-  const { setFieldValue } = useFormikContext();
-  const [field, meta] = useField(props);
+  const { getFieldProps, getFieldMeta, setFieldValue } = useFormikContext();
+  const field = getFieldProps(props);
+  const meta = getFieldMeta(props);
   return (
     <>
       <label className={labelclass} htmlFor={props.id || props.name}>
@@ -72,8 +73,8 @@ export const DateTimePicker = ({
         {...field}
         {...props}
         selected={(field.value && new Date(field.value)) || null}
-        onChange={(val) => {
-          setFieldValue(field.name, val);
+        onChange={(date) => {
+          setFieldValue(field.name, date);
         }}
       />
       {meta.touched && meta.error ? (
