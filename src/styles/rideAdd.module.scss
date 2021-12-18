@@ -39,6 +39,8 @@
   border: 0;
   width: 100%;
   margin-top: 5px;
+  font-family: vars.$sec-font;
+  color: vars.$dark;
 }
 
 .input::placeholder {
