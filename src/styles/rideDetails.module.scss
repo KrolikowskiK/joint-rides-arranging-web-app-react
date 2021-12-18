@@ -1,27 +1,24 @@
 @use "vars.scss" as vars;
 
-.details {
+.ride {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.rideDetails {
   display: grid;
   grid:
-    "startDest"
-    "endDest"
-    "startTime"
-    "endTime"
-    "startDate"
-    "driver"
-    "price"
-    "button"
+    auto-flow
     / 1fr;
   gap: 15px 30px;
 
-  width: 80%;
   margin: 0 auto;
   margin-top: 20px;
   font-family: vars.$sec-font;
   color: vars.$dark;
 }
 
-.details > div {
+.rideDetails > div {
   background-color: vars.$white;
   border-radius: 5px;
   padding: 10px;
@@ -38,59 +35,97 @@
   font-size: 1.1rem;
 }
 
-.startDest {
-  grid-area: startDest;
-}
-
-.endDest {
-  grid-area: endDest;
-}
-
-.startTime {
-  grid-area: startDate;
-}
-
-.startTime {
-  grid-area: startTime;
-}
-
-.endTime {
-  grid-area: endTime;
-}
-
-.driver {
-  grid-area: driver;
-}
-
-.price {
-  grid-area: price;
+.buttons {
+  display: flex;
+  margin: 0 auto;
+  margin-top: 20px;
+  column-gap: 30px;
 }
 
 .button {
-  grid-area: button;
+  flex: 1 0 0;
   background-color: vars.$medium;
   border: none;
   color: vars.$white;
   font-family: vars.$sec-font;
   padding: 10px 15px;
   border-radius: 5px;
-  font-size: 1.1rem;
+  font-size: 1rem;
+  text-decoration: none;
+  text-align: center;
+}
+
+.passengers {
+  margin: 0 auto;
+  margin-top: 20px;
+  display: flex;
+  column-gap: 15px;
+  justify-content: center;
+}
+
+.passenger {
+  background-color: vars.$white;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+  font-family: vars.$sec-font;
+  color: vars.$dark;
+}
+
+.chat {
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 10px;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.message {
+  background-color: vars.$white;
+  border-radius: 5px;
+  padding: 10px;
+  font-family: vars.$sec-font;
+  color: vars.$dark;
+}
+
+.writeMessage {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 10px;
+
+  margin-top: 10px;
+}
+
+.writeMessage input {
+  border-radius: 5px;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  font-size: 1rem;
+  font-family: vars.$sec-font;
+  color: vars.$dark;
+}
+
+.writeMessage input::placeholder {
+  font-family: vars.$sec-font;
+  color: vars.$dark;
 }
 
 @media screen and (min-width: 481px) {
-  .details {
+  .rideDetails {
     grid:
-      "startDest endDest"
-      "startTime endTime"
-      "startDate driver"
-      "price ."
-      "button button"
+      auto-flow
       / 1fr 1fr;
   }
 }
 
 @media screen and (min-width: 769px) {
-  .details > div {
+  .rideDetails > div {
     padding: 10px 20px;
   }
 
@@ -100,7 +135,7 @@
 }
 
 @media screen and (min-width: 1201px) {
-  .details {
+  .ride {
     width: 50%;
   }
 }
