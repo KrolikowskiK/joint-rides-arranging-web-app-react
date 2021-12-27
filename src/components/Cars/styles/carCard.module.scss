@@ -1,0 +1,27 @@
+@use "/src/components/App/vars.scss" as vars;
+
+.card {
+  display: flex;
+  align-items: center;
+  column-gap: 100px;
+
+  color: vars.$dark;
+  font-family: vars.$prim-font;
+  font-size: 1.3rem;
+
+  background-color: vars.$white;
+
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 0;
+  padding: 20px;
+  width: 300px;
+
+  text-decoration: none;
+}
+
+@media screen and (min-width: 769px) {
+  .card {
+    width: 400px;
+  }
+}
