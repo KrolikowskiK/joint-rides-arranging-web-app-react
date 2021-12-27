@@ -1,0 +1,83 @@
+@use "/src/components/App/vars.scss" as vars;
+
+.nav {
+  background-color: vars.$medium;
+  display: flex;
+  flex-direction: row;
+  height: 40px;
+  justify-content: space-between;
+}
+
+.navLeft {
+  display: flex;
+  padding-left: 3%;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.navMid {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.navRight {
+  position: relative;
+  display: flex;
+  padding-right: 3%;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+}
+
+.menu {
+  display: none;
+}
+
+.menuVisible {
+  position: absolute;
+  right: 0;
+  top: 40px;
+  display: flex;
+  flex-direction: column;
+  background-color: vars.$medium;
+  row-gap: 20px;
+  padding: 10px 10px;
+  min-width: 200px;
+}
+
+.link {
+  text-decoration: none;
+  color: vars.$white;
+  font-family: vars.$prim-font;
+  font-size: 1.1rem;
+  flex-grow: 1;
+  flex-basis: 0;
+}
+
+.menuButton {
+  background-color: inherit;
+  border: none;
+}
+
+@media screen and (min-width: 769px) {
+  .menuVisible {
+    position: absolute;
+    left: 0;
+    top: 40px;
+  }
+
+  .navLeft {
+    padding-left: 17%;
+  }
+
+  .navRight {
+    padding-right: 17%;
+  }
+}

@@ -1,0 +1,78 @@
+@use "/src/components/App/vars.scss" as vars;
+
+.header {
+  margin-top: 10px;
+  text-align: center;
+  color: vars.$dark;
+  font-family: vars.$prim-font;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 20px;
+
+  font-family: vars.$sec-font;
+  color: vars.$dark;
+}
+
+.label {
+  margin-top: 10px;
+}
+
+.input {
+  width: 100%;
+  border-radius: 5px;
+  border: 0;
+  margin: 5px auto;
+  padding: 10px 15px;
+}
+
+.input::placeholder {
+  font-family: vars.$sec-font;
+  color: vars.$dark;
+}
+
+.error {
+  font-family: vars.$sec-font;
+  color: vars.$dark;
+  color: red;
+}
+
+.submit {
+  width: 100%;
+  margin: 5px auto;
+  padding: 10px 0;
+  border-radius: 5px;
+  border: 0;
+  color: vars.$white;
+  background-color: vars.$medium;
+}
+
+.submit:disabled {
+  background-color: grey;
+}
+
+.h2 {
+  color: vars.$dark;
+  font-family: vars.$prim-font;
+  margin-top: 10px;
+  text-align: center;
+}
+
+@media (min-width: 769px) {
+  .header {
+    margin-top: 30px;
+  }
+
+  .form {
+    width: 50%;
+    margin: 10px auto;
+  }
+
+  .h2 {
+    margin-top: 30px;
+  }
+}
