@@ -9,6 +9,7 @@ import RideDetails from "./components/Rides/RideDetails";
 import RideAdd from "./components/Rides/RideAdd";
 import RideEdit from "./components/Rides/RideEdit";
 import Profile from "./components/Profile/Profile";
+import ProfileGuest from "./components/Profile/ProfileGuest";
 import Cars from "./components/Cars/Cars";
 import CarAdd from "./components/Cars/CarAdd";
 import CarDetails from "./components/Cars/CarDetails";
@@ -61,6 +62,14 @@ ReactDOM.render(
             element={
               <RequireAuth>
                 <Profile />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="profile/:userHash"
+            element={
+              <RequireAuth>
+                <ProfileGuest />
               </RequireAuth>
             }
           />
