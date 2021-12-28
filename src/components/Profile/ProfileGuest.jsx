@@ -5,11 +5,16 @@ import useCustomKyApi from "../../hooks/KyApi";
 import * as css from "./styles/profileGuest.module.scss";
 import Opinion from "../Opinion/Opinion";
 import { formatDate } from "../../services/utils";
+import { Form, Formik } from "formik";
+import { CustomSelect, MyTextArea } from "../../services/FormComponents";
+import * as Yup from "yup";
+import Popup from "../../services/Popup/Popup";
 
 const ProfileGuest = () => {
   const { userHash } = useParams();
   const api = useCustomKyApi();
   const [userDetails, setUserDetails] = useState();
+  const [popup, setPopup] = useState(null);
 
   useEffect(async () => {
     try {
@@ -29,6 +34,7 @@ const ProfileGuest = () => {
       ));
 
       setUserDetails({
+        id: user.id,
         name: user.name,
         gender: user.gender === "men" ? "Mężczyzna" : "Kobieta",
         description: user.description || "Brak opisu",
@@ -54,6 +60,82 @@ const ProfileGuest = () => {
               : "Brak opinii do wyświetlenia"}
           </h2>
           {userDetails.opinions}
+          <h2>Dodaj opinię</h2>
+          <Formik
+            initialValues={{ rate: "", opinion: "" }}
+            validationSchema={Yup.object({
+              rate: Yup.string().required("Wybierz ocenę"),
+              opinion: Yup.string().required("Napisz opinię"),
+            })}
+            onSubmit={async (values) => {
+              try {
+                await api.post(
+                  "https://travelapi-app.azurewebsites.net/api/Opinion/addOpinion",
+                  {
+                    json: {
+                      userId: userDetails.id,
+                      opinionValue: values.rate,
+                      opinionDescription: values.opinion,
+                    },
+                  }
+                );
+
+                setPopup(
+                  <Popup
+                    message="Dodano opinię"
+                    onAnimationEnd={() => {
+                      setPopup(null);
+                    }}
+                  />
+                );
+              } catch (error) {
+                setPopup(
+                  <Popup
+                    message="Nie udało się dodać opinii"
+                    onAnimationEnd={() => {
+                      setPopup(null);
+                    }}
+                  />
+                );
+              }
+            }}
+          >
+            {({ isSubmitting }) => (
+              <Form className={css.form}>
+                <CustomSelect
+                  label="Ocena"
+                  id="rate"
+                  name="rate"
+                  options={[
+                    { key: "1", value: "1" },
+                    { key: "2", value: "2" },
+                    { key: "3", value: "3" },
+                    { key: "4", value: "4" },
+                    { key: "5", value: "5" },
+                  ]}
+                  labelclass={css.formLabel}
+                  inputclass={css.input}
+                  errorclass={css.error}
+                />
+                <MyTextArea
+                  label="Treść opinii"
+                  id="opinion"
+                  name="opinion"
+                  placeholder="Treść opinii"
+                  labelclass={css.formLabel}
+                  inputclass={css.textArea}
+                  errorclass={css.error}
+                />
+                <button
+                  type="submit"
+                  className={css.button}
+                  disabled={isSubmitting}
+                >
+                  Wyślij
+                </button>
+              </Form>
+            )}
+          </Formik>
         </div>
 
         <div className={css.details}>
@@ -75,6 +157,7 @@ const ProfileGuest = () => {
           </div>
         </div>
       </div>
+      {popup}
     </div>
   );
 };
