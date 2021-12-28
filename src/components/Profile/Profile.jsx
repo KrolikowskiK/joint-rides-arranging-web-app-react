@@ -11,6 +11,7 @@ import Opinion from "../Opinion/Opinion";
 import useCustomKyApi from "../../hooks/KyApi";
 import LoadingAnimation from "../../services/LoadingAnimation/LoadingAnimation";
 import Popup from "../../services/Popup/Popup";
+import { formatDate } from "../../services/utils";
 
 const Profile = () => {
   const api = useCustomKyApi();
@@ -22,6 +23,16 @@ const Profile = () => {
       const userDetails = await api
         .get("https://travelapi-app.azurewebsites.net/api/Users/user")
         .json();
+
+      const opinions = userDetails.member.opinions.map((opinion) => (
+        <Opinion
+          key={opinion.id}
+          rate={opinion.opinionValue}
+          date={formatDate(opinion.date)}
+          text={opinion.opinionDescription}
+        />
+      ));
+
       setUserDetails({
         id: userDetails.member.id || "",
         userHash: userDetails.member.userHash || "",
@@ -29,7 +40,7 @@ const Profile = () => {
         name: userDetails.member.name || "",
         gender: userDetails.member.gender || "",
         description: userDetails.member.description || "",
-        opinions: userDetails.member.opinions || [],
+        opinions: opinions,
       });
     } catch (error) {
       setPopup(
@@ -59,8 +70,12 @@ const Profile = () => {
       <h1 className={css.mainHeader}>Twój profil</h1>
       <div className={css.content}>
         <div className={css.opinions}>
-          <h2>Twoje opinie</h2>
-          <Opinion />
+          <h2>
+            {userDetails.opinions.length > 0
+              ? "Opinie"
+              : "Brak opinii do wyświetlenia"}
+          </h2>
+          {userDetails.opinions}
         </div>
         <Formik
           initialValues={{

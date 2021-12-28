@@ -4,6 +4,7 @@ import LoadingAnimation from "../../services/LoadingAnimation/LoadingAnimation";
 import useCustomKyApi from "../../hooks/KyApi";
 import * as css from "./profileGuest.module.scss";
 import Opinion from "../Opinion/Opinion";
+import { formatDate } from "../../services/utils";
 
 const ProfileGuest = () => {
   const { userHash } = useParams();
@@ -18,11 +19,20 @@ const ProfileGuest = () => {
         )
         .json();
 
+      const opinions = user.opinions.map((opinion) => (
+        <Opinion
+          key={opinion.id}
+          rate={opinion.opinionValue}
+          date={formatDate(opinion.date)}
+          text={opinion.opinionDescription}
+        />
+      ));
+
       setUserDetails({
         name: user.name,
         gender: user.gender === "men" ? "Mężczyzna" : "Kobieta",
         description: user.description || "Brak opisu",
-        opinions: [],
+        opinions: opinions,
       });
     } catch (error) {
       setUserDetails(null);
@@ -38,8 +48,12 @@ const ProfileGuest = () => {
       <h1 className={css.mainHeader}>Profil użytkownika</h1>
       <div className={css.content}>
         <div className={css.opinions}>
-          <h2>Opinie</h2>
-          <Opinion />
+          <h2>
+            {userDetails.opinions.length > 0
+              ? "Opinie"
+              : "Brak opinii do wyświetlenia"}
+          </h2>
+          {userDetails.opinions}
         </div>
 
         <div className={css.details}>
