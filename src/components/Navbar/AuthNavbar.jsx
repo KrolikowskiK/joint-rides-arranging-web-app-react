@@ -33,8 +33,8 @@ export default function AuthNavbar() {
         <Link to="rides" className={css.link} onClick={closeMenu}>
           Moje przejazdy
         </Link>
-        <Link to="friends" className={css.link} onClick={closeMenu}>
-          Znajomi
+        <Link to="cars" className={css.link} onClick={closeMenu}>
+          Moje pojazdy
         </Link>
       </div>
     ) : null;
@@ -50,9 +50,6 @@ export default function AuthNavbar() {
         <Link to="rides" className={css.link} onClick={closeMenu}>
           Moje przejazdy
         </Link>
-        <Link to="friends" className={css.link} onClick={closeMenu}>
-          Znajomi
-        </Link>
         <Link to="profile" className={css.link} onClick={closeMenu}>
           Mój profil
         </Link>
@@ -67,9 +64,6 @@ export default function AuthNavbar() {
       <div className={menuClasses}>
         <Link to="profile" className={css.link} onClick={closeMenu}>
           Mój profil
-        </Link>
-        <Link to="cars" className={css.link} onClick={closeMenu}>
-          Moje pojazdy
         </Link>
         <Link to="signout" className={css.link} onClick={closeMenu}>
           Wyloguj się
