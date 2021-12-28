@@ -6,7 +6,7 @@ import {
   CustomSelect,
 } from "../../services/FormComponents";
 import * as Yup from "yup";
-import * as css from "./profile.module.scss";
+import * as css from "./styles/profile.module.scss";
 import Opinion from "../Opinion/Opinion";
 import useCustomKyApi from "../../hooks/KyApi";
 import LoadingAnimation from "../../services/LoadingAnimation/LoadingAnimation";

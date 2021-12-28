@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import LoadingAnimation from "../../services/LoadingAnimation/LoadingAnimation";
 import useCustomKyApi from "../../hooks/KyApi";
-import * as css from "./profileGuest.module.scss";
+import * as css from "./styles/profileGuest.module.scss";
 import Opinion from "../Opinion/Opinion";
 import { formatDate } from "../../services/utils";
 
