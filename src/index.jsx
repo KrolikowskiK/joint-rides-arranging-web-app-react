@@ -8,7 +8,6 @@ import Rides from "./components/Rides/Rides";
 import RideDetails from "./components/Rides/RideDetails";
 import RideAdd from "./components/Rides/RideAdd";
 import RideEdit from "./components/Rides/RideEdit";
-import Friends from "./components/Friends/Friends";
 import Profile from "./components/Profile/Profile";
 import Cars from "./components/Cars/Cars";
 import CarAdd from "./components/Cars/CarAdd";
@@ -57,15 +56,6 @@ ReactDOM.render(
               </RequireAuth>
             }
           />
-          <Route
-            path="friends"
-            element={
-              <RequireAuth>
-                <Friends />
-              </RequireAuth>
-            }
-          />
-          <Route path="friends/:friendId" element={<></>} />
           <Route
             path="profile"
             element={
