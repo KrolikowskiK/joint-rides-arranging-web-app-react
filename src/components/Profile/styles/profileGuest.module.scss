@@ -1,0 +1,134 @@
+@use "/src/components/App/vars.scss" as vars;
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  align-items: center;
+}
+
+.mainHeader {
+  margin-top: 10px;
+  text-align: center;
+  color: vars.$dark;
+  font-family: vars.$prim-font;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  width: 80%;
+}
+
+.opinions {
+  order: 1;
+
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 0;
+
+  color: vars.$dark;
+  font-family: vars.$prim-font;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  flex: 1 0 0;
+  font-family: vars.$sec-font;
+  color: vars.$dark;
+}
+
+.details > div {
+  background-color: vars.$white;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.secondaryHeader {
+  color: vars.$dark;
+  font-family: vars.$prim-font;
+  margin-top: 15px;
+}
+
+.secondaryHeader:first-child {
+  color: vars.$dark;
+  font-family: vars.$prim-font;
+  margin-top: 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 0;
+}
+
+.formLabel {
+  font-family: vars.$sec-font;
+  color: vars.$dark;
+  margin-top: 15px;
+}
+
+.input {
+  font-family: vars.$sec-font;
+  color: vars.$dark;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: 0;
+  margin-top: 5px;
+}
+
+.input::placeholder {
+  font-family: vars.$sec-font;
+  color: vars.$dark;
+}
+
+.error {
+  font-family: vars.$sec-font;
+  color: vars.$dark;
+  color: red;
+}
+
+.textArea {
+  font-family: vars.$sec-font;
+  color: vars.$dark;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: 0;
+  resize: none;
+  height: 100px;
+}
+
+.textArea::placeholder {
+  font-family: vars.$sec-font;
+  color: vars.$dark;
+}
+
+.button {
+  font-family: vars.$sec-font;
+  color: vars.$white;
+  margin-top: 20px;
+  padding: 10px 0;
+  border-radius: 5px;
+  border: 0;
+  background-color: vars.$medium;
+}
+
+@media screen and (min-width: 769px) {
+  .mainHeader {
+    margin-top: 30px;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .content {
+    flex-direction: row;
+    column-gap: 20px;
+  }
+
+  .opinions {
+    order: 0;
+  }
+}

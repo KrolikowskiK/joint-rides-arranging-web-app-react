@@ -1,43 +1,35 @@
-import React, { useState } from "react";
+import React from "react";
 import * as css from "./opinion.module.scss";
 
-const Opinion = () => {
-  const [stars, setStars] = useState(1);
-  const fun = (e) => {
-    setStars(e.target.id);
-  };
+const Opinion = (params) => {
+  const { rate, date, text } = params;
 
   return (
     <div className={css.opinion}>
       <div className={css.stars}>
         <span
           id="1"
-          className={stars > 0 ? "fa fa-star " + css.checked : "fa fa-star"}
-          onMouseOver={fun}
+          className={rate > 0 ? "fa fa-star " + css.checked : "fa fa-star"}
         ></span>
         <span
           id="2"
-          className={stars > 1 ? "fa fa-star " + css.checked : "fa fa-star"}
-          onMouseOver={fun}
+          className={rate > 1 ? "fa fa-star " + css.checked : "fa fa-star"}
         ></span>
         <span
           id="3"
-          className={stars > 2 ? "fa fa-star " + css.checked : "fa fa-star"}
-          onMouseOver={fun}
+          className={rate > 2 ? "fa fa-star " + css.checked : "fa fa-star"}
         ></span>
         <span
           id="4"
-          className={stars > 3 ? "fa fa-star " + css.checked : "fa fa-star"}
-          onMouseOver={fun}
+          className={rate > 3 ? "fa fa-star " + css.checked : "fa fa-star"}
         ></span>
         <span
           id="5"
-          className={stars > 4 ? "fa fa-star " + css.checked : "fa fa-star"}
-          onMouseOver={fun}
+          className={rate > 4 ? "fa fa-star " + css.checked : "fa fa-star"}
         ></span>
       </div>
-      <div className={css.date}>18/12/2021</div>
-      <div className={css.text}>Super przejazd! Polecam! Anna Wachowicz</div>
+      <div className={css.date}>{date}</div>
+      <div className={css.text}>{text}</div>
     </div>
   );
 };

@@ -75,6 +75,7 @@ const RideDetails = () => {
         endDest: ride.endIn,
         startDateAndTime: formatDate(ride.startTime),
         driver: ride.creator.name,
+        driverHash: ride.creator.userHash,
         price: ride.price,
         availableSeats: ride.numberOfSeats,
         carName: ride.car.mark + " " + ride.car.model,
@@ -176,7 +177,11 @@ const RideDetails = () => {
         {!isOwner ? (
           <div className={css.driver}>
             <div className={css.label}>Kierowca:</div>
-            <div className={css.value}>{rideDetails.driver}</div>
+            <div className={css.value}>
+              <Link to={`/profile/${rideDetails.driverHash}`}>
+                {rideDetails.driver}
+              </Link>
+            </div>
           </div>
         ) : null}
         <div className={css.price}>

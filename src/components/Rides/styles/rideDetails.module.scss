@@ -35,6 +35,12 @@
   font-size: 1.1rem;
 }
 
+.value > a {
+  text-decoration: none;
+  font-family: vars.$prim-font;
+  color: vars.$dark;
+}
+
 .buttons {
   display: flex;
   margin: 0 auto;
