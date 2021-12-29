@@ -8,6 +8,8 @@ import useAuth from "../../services/Auth";
 import { Form, Formik } from "formik";
 import { formatDate } from "../../services/utils";
 import { MyTextInput } from "../../services/FormComponents";
+import Popup from "../../services/Popup/Popup";
+import * as Yup from "yup";
 
 const RideDetails = () => {
   const navigate = useNavigate();
@@ -19,6 +21,7 @@ const RideDetails = () => {
   const [messages, setMessages] = useState([]);
   const [isPassenger, setIsPassenger] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
+  const [popup, setPopup] = useState(null);
 
   useEffect(async () => {
     try {
@@ -47,12 +50,12 @@ const RideDetails = () => {
             `https://travelapi-app.azurewebsites.net/api/Trips/Messages/${rideId}`
           )
           .json();
-        const formattedMessages = rawMessages.map((message) => {
+        const formattedMessages = rawMessages.map((message, key) => {
           return (
-            <div className={css.message}>
-              <div>{message.owner.name}</div>
-              <div>{formatDate(message.addedDate)}</div>
-              <div>{message.textMessage}</div>
+            <div key={key} className={css.message}>
+              <div className={css.user}>{message.owner.name}</div>
+              <div className={css.date}>{formatDate(message.addedDate)}</div>
+              <div className={css.text}>{message.textMessage}</div>
             </div>
           );
         });
@@ -244,20 +247,44 @@ const RideDetails = () => {
       </div>
 
       {/* only if in ride */}
-      {/* {isPassenger || isOwner ? (
+      {isPassenger || isOwner ? (
         <>
           <h2 className={css.header}>Czat</h2>
           <div className={css.chat}>
             <div className={css.messages}>
-              <div className={css.message}>Hejo</div>
-              <div className={css.message}>No siema</div>
-              <div className={css.message}>Kiedy jazda?</div>
-              <div className={css.message}>Jutro byq!!11!</div>
+              {messages.length > 0 ? (
+                messages
+              ) : (
+                <h3 className={css.header}>Brak wiadomości</h3>
+              )}
             </div>
             <Formik
               initialValues={{ message: "" }}
+              validationSchema={Yup.object({
+                message: Yup.string().required("Podaj treść wiadomości"),
+              })}
               onSubmit={async (values) => {
-                console.log(values);
+                try {
+                  await api.post(
+                    `https://travelapi-app.azurewebsites.net/api/Trips/Messages/AddMessage`,
+                    {
+                      json: {
+                        tripId: rideId,
+                        textMessage: values.message,
+                      },
+                    }
+                  );
+                } catch (error) {
+                  console.log(error);
+                  setPopup(
+                    <Popup
+                      message="Nie udało się wysłać wiadomości"
+                      onAnimationEnd={() => {
+                        setPopup(null);
+                      }}
+                    />
+                  );
+                }
               }}
             >
               {({ isSubmitting }) => (
@@ -284,7 +311,8 @@ const RideDetails = () => {
             </Formik>
           </div>
         </>
-      ) : null} */}
+      ) : null}
+      {popup}
     </div>
   );
 };
