@@ -36,7 +36,7 @@ const CarAdd = () => {
             .typeError("Podaj liczbę")
             .integer("Podaj liczbę całkowitą")
             .required("Podaj liczbę siedzeń w samochodzie"),
-          color: Yup.string().required("Podaj kolor samochodu twojego starego"),
+          color: Yup.string().required("Podaj kolor samochodu"),
         })}
         onSubmit={async (values) => {
           try {
